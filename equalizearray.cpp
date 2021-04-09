@@ -1,16 +1,44 @@
-int equalizeArray(vector<int> arr) { 
-sort(arr.begin(),arr.end());
-int max=0, freq=1;
-for(int i=0; i<arr.size()-1;i++){
-    if(arr[i] == arr[i+1])
-    freq++;
-    else{
-        if(freq>max)
-        max=freq;
-        freq=1;
-    }
+#include <iostream>
+using namespace std;
+
+int length(char input[]){
+	int len = 0;
+	for(int i=0; input[i] != '\0'; i++){
+		len++;
+	}
+	return len;
 }
-if(freq>max)
-max=freq;
-return arr.size() - max;
+
+int checkPalindrome_helper(char input[], int start, int end){
+	if(input[0] == '\0' || input[1] == '\0'){
+		return 1;
+	}
+	if(start >= end){
+		return 1;
+	}
+	if(input[start] == input[end]){
+		return checkPalindrome_helper(input, start + 1, end - 1);
+	}
+	else{
+		return 0;
+	}
+}
+
+int checkPalindrome(char input[]){
+	int len = length(input);
+	return checkPalindrome_helper(input, 0 , len-1);
+}
+
+
+
+int main() {
+	char input[50];
+	cin >> input;
+
+	if(checkPalindrome(input)){
+		cout<<"true" << endl;
+	}
+	else{
+		cout << "false" << endl;
+	}
 }
